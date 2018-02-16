@@ -1,0 +1,128 @@
+Sub multi_year_stock()
+    Dim month As String
+    Dim sheetName As String
+    
+    Dim sh As Worksheet
+    Dim rn As Range
+    
+    Dim ticker As String
+    Dim total_volume As Double
+    Dim percent_change As Double
+    
+    total_volume = 0
+    
+    Dim Summary_Table_Row As Integer
+    
+    Dim opening_price As Double
+    Dim closing_price As Double
+    Dim yearly_change As Double
+    Dim max As Double
+    Dim min As Double
+    Dim max_volume As Double
+    Dim min_ticker As String
+    Dim max_ticker As String
+    Dim max_volume_ticker As String
+    
+    For i = 1 To ActiveWorkbook.Worksheets.Count
+        Summary_Table_Row = 2
+        
+        'grab active worksheet name
+        sheetName = ActiveWorkbook.Worksheets(i).Name
+        'MsgBox (sheetName)
+        'Change active worksheet
+        Worksheets(sheetName).Activate
+        opening_price = Cells(2, 3).Value
+        max = 0
+        min = 0
+        max_volume = 0
+        
+        'gateway for finding row and column count
+        Set sh = ThisWorkbook.Sheets(sheetName)
+        Set rn = sh.UsedRange
+        
+        'Create summary table (Easy)
+        For k = 2 To rn.Rows.Count
+            If Cells(k + 1, 1).Value <> Cells(k, 1).Value Then
+            
+                ' Set the ticker name
+                ticker = Cells(k, 1).Value
+
+                ' Add to the ticker Total
+                total_volume = total_volume + Cells(k, 7).Value
+
+                ' Print the ticker name in the Summary Table
+                Range("I" & Summary_Table_Row).Value = ticker
+
+                'Print the total volume to the Summary Table
+                Range("J" & Summary_Table_Row).Value = total_volume
+
+                ' Add one to the summary table row
+                Summary_Table_Row = Summary_Table_Row + 1
+                
+                If (total_volume > max_volume) Then
+                    max_volume = total_volume
+                    max_volume_ticker = Cells(k, 1).Value
+                End If
+      
+                ' Reset the Total Volume
+                total_volume = 0
+            Else
+                total_volume = total_volume + Cells(k, 7).Value
+            End If
+            
+        Next k
+            
+        'Create summary table (Moderate)
+        'reset summary table row
+        Summary_Table_Row = 2
+        For l = 2 To rn.Rows.Count
+            If Cells(l + 1, 1).Value <> Cells(l, 1).Value Then
+                closing_price = Cells(l, 6).Value
+                
+                ' Print the yearly chnage in the Summary Table
+                yearly_change = closing_price - opening_price
+                Range("K" & Summary_Table_Row).Value = yearly_change
+
+                'Print the percent change in the Summary Table
+                If (yearly_change = 0 Or opening_price = 0) Then
+                    percent_change = 0
+                Else
+                    percent_change = (yearly_change / opening_price) * 100
+                End If
+                Range("L" & Summary_Table_Row).Value = percent_change
+
+                ' Add one to the summary table row
+                Summary_Table_Row = Summary_Table_Row + 1
+                opening_price = Cells(l + 1, 3).Value
+                
+                If (percent_change > max) Then
+                    max = percent_change
+                    max_ticker = Cells(l, 1).Value
+                    
+                ElseIf (percent_change < min) Then
+                    min = percent_change
+                    min_ticker = Cells(l, 1).Value
+                End If
+            End If
+        Next l
+        
+       Range("I1").Value = "ticker"
+       Range("J1").Value = "total_volume"
+       Range("K1").Value = "yearly change"
+       Range("L1").Value = "percent change"
+       Range("O1").Value = "ticker"
+       Range("P1").Value = "value"
+       Range("N2").Value = "Greatest % increase"
+       Range("N3").Value = "Greatest % decrease"
+       Range("N4").Value = "Greatest total volume"
+       Range("O2").Value = max_ticker
+       Range("O3").Value = min_ticker
+       Range("O4").Value = max_volume_ticker
+       Range("P2").Value = max
+       Range("P3").Value = min
+       Range("P4").Value = max_volume
+    Next i
+    
+End Sub
+
+
