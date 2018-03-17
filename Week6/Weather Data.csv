@@ -1,0 +1,9 @@
+City,Cloudiness,Humidity,Latitude,Temperature,Wind Speed,URL Requested
+monteagudo,32,98,-20,290.899,1.01,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=monteagudo
+marin,76,100,26,279.64,6.7,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=marin
+castro,76,99,-49,282.099,1.01,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=castro
+kimbe,92,100,-6,297.449,0.86,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=kimbe
+yellowknife,40,58,67,269.15,2.6,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=yellowknife
+ribeira grande,92,94,46,290.824,12.41,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=ribeira grande
+iqaluit,90,84,60,259.15,4.6,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=iqaluit
+hasaki,20,48,24,278.9,5.7,http://api.openweathermap.org/data/2.5/weather?appid=2b249559ecb239ca11bea12938e7b0e9&q=hasaki
